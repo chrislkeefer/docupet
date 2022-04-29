@@ -79,4 +79,19 @@ class PetFeatureTest extends TestCase
 
         $response->assertForbidden();
     }
+
+    public function testUserCanNotUpdateAPetTheyDoNotOwn()
+    {
+        $pet = Pet::factory()->create();
+
+        $response = $this->put("/api/pet/{$pet->id}", [
+            "name" => "User Updated Pet Name",
+            "description" => "My updated pet description",
+            "pet_species_id" => $species_id = PetSpecies::inRandomOrder()->first()->id,
+            "pet_breed_id" => PetBreed::where('pet_species_id', $species_id)->inRandomOrder()->first()->id,
+            "gender" => PetGender::cases()[rand(0, 1)]->value,
+        ], ['Accept' => 'application/json']);
+
+        $response->assertForbidden();
+    }
 }
