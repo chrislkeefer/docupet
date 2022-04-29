@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\PetBreedListApiController;
 use App\Http\Controllers\Api\PetResourceApiController;
+use App\Http\Controllers\Api\PetSpeciesListApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::resource('pet', PetResourceApiController::class);
+Route::get('species', PetSpeciesListApiController::class);
+Route::get('breed', PetBreedListApiController::class);
