@@ -25,7 +25,7 @@
                 @after-leave="query = ''"
             >
                 <ComboboxOptions
-                    class="focus:outline-none absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow ring-1 ring-black ring-opacity-5 sm:text-sm"
+                    class="focus:outline-none z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow ring-1 ring-black ring-opacity-5 sm:text-sm"
                 >
                     <div
                         v-if="filteredOption.length === 0 && query !== ''"

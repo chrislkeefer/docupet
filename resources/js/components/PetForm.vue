@@ -24,6 +24,7 @@ export default {
         selected_pet_species: {
             handler(value) {
                 this.form.pet_species_id = value?.key;
+                this.selected_pet_breed = null;
             },
         },
         selected_pet_breed: {
@@ -46,13 +47,13 @@ export default {
             breedOptions: [],
             busy: false,
             successful: false,
-            errors: [],
+            errors: {},
             breed_meta: null,
         };
     },
     methods: {
         resetForm() {
-            this.form.name = '';
+            this.form.name = "";
             this.form.pet_species_id = null;
             this.form.pet_breed_id = null;
             this.form.gender = null;
@@ -78,8 +79,7 @@ export default {
 
             Axios.post("/api/pet", this.form)
                 .then((response) => {
-                    this.errors.length = 0;
-                    this.successful = true;
+                    this.errors = this.successful = true;
                     this.resetForm();
                 })
                 .catch((e) => {
@@ -242,7 +242,15 @@ export default {
             v-if="successful"
             class="bg-green-50 border-green-300 text-black rounded px-4 py-2"
         >
-            Your pet has been successfully saved!
+            Your pet has been successfully saved.
         </p>
+        <ul
+            v-if="errors && Object.keys(errors).length"
+            class="bg-red-50 border-red-300 text-black rounded px-4 py-2"
+        >
+            <li v-for="(error, i) in errors" :key="`error-${i}`">
+                {{ error[0] }}
+            </li>
+        </ul>
     </form>
 </template>
