@@ -21,12 +21,12 @@
 <body id="app" class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
         <header class="bg-white shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                 <div class="flex-shrink">
                     
                 </div>
                 <div class="w-full flex-grow justify-center flex items-center">
-                    <img src="{{ asset('images/brand-logo.png') }}" />
+                    <img class="h-10" src="{{ asset('images/brand-logo.png') }}" />
                 </div>
                 <div class="flex-shrink">
                     
@@ -36,7 +36,7 @@
 
         <!-- Page Content -->
         <main>
-            
+            <pet-form :species-options="@js(\App\Models\PetSpecies::all())" />
         </main>
     </div>
 </body>
