@@ -94,4 +94,22 @@ class PetFeatureTest extends TestCase
 
         $response->assertForbidden();
     }
+
+    public function testUserCanDeletePetRecord()
+    {
+        $this->login($user = User::factory()->has(Pet::factory())->create());
+
+        $response = $this->delete("/api/pet/{$user->pets->first()->id}", [], ['Accept' => 'application/json']);
+
+        $response->assertSuccessful();
+    }
+
+    public function testGuestCanNotDeletePetRecord()
+    {
+        $pet = Pet::factory()->create();
+
+        $response = $this->delete("/api/pet/{$pet->id}", [], ['Accept' => 'application/json']);
+
+        $response->assertForbidden();
+    }
 }
