@@ -30,7 +30,10 @@ class PetResourceApiController extends Controller
 
     public function store(StorePetRequest $request, CreatePetAction $action): JsonResponse
     {
-        $pet = $action->exec($request->validated(), $request->user());
+        $pet = $action->exec([
+            ...$request->validated(),
+            "user_id" => $request->user()?->id
+        ]);
 
         return response()->json(new PetResource($pet));
     }
@@ -42,7 +45,7 @@ class PetResourceApiController extends Controller
 
     public function update(UpdatePetRequest $request, Pet $pet, UpdatePetAction $action): JsonResponse
     {
-        $pet = $action->exec($request->validated(), $pet);
+        $pet = $action->exec($pet, $request->validated());
 
         return response()->json(new PetResource($pet));
     }

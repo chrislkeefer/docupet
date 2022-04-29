@@ -18,24 +18,24 @@ class PetFeatureTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        
+
         $this->seed(PetSeeder::class);
     }
-    
-    public function test_guest_can_create_pet()
+
+    public function testGuestCanCreatePet()
     {
         $response = $this->post("/api/pet", [
             "name" => "My Pet Name",
             "description" => "My pet description",
             "pet_species_id" => $species_id = PetSpecies::inRandomOrder()->first()->id,
-            "pet_breed_id" => PetBreed::where('pet_species_id', $species_id)->inRandomOrder()->first()->id,            
-            "gender" => PetGender::cases()[rand(0,1)]->value,
+            "pet_breed_id" => PetBreed::where('pet_species_id', $species_id)->inRandomOrder()->first()->id,
+            "gender" => PetGender::cases()[rand(0, 1)]->value,
         ], ['Accept' => 'application/json']);
 
         $response->assertSuccessful();
     }
 
-    public function test_user_can_create_pet()
+    public function testUserCanCreatePet()
     {
         $this->login(User::inRandomOrder()->first());
 
@@ -43,38 +43,38 @@ class PetFeatureTest extends TestCase
             "name" => "My Pet Name",
             "description" => "My pet description",
             "pet_species_id" => $species_id = PetSpecies::inRandomOrder()->first()->id,
-            "pet_breed_id" => PetBreed::where('pet_species_id', $species_id)->inRandomOrder()->first()->id,            
-            "gender" => PetGender::cases()[rand(0,1)]->value,
+            "pet_breed_id" => PetBreed::where('pet_species_id', $species_id)->inRandomOrder()->first()->id,
+            "gender" => PetGender::cases()[rand(0, 1)]->value,
         ], ['Accept' => 'application/json']);
 
         $response->assertSuccessful();
     }
 
-    public function test_user_can_update_pet()
+    public function testUserCanUpdatePet()
     {
         $this->login($user = User::factory()->has(Pet::factory())->create());
-        
+
         $response = $this->put("/api/pet/{$user->pets->first()->id}", [
             "name" => "User Updated Pet Name",
             "description" => "My updated pet description",
             "pet_species_id" => $species_id = PetSpecies::inRandomOrder()->first()->id,
-            "pet_breed_id" => PetBreed::where('pet_species_id', $species_id)->inRandomOrder()->first()->id,            
-            "gender" => PetGender::cases()[rand(0,1)]->value,
+            "pet_breed_id" => PetBreed::where('pet_species_id', $species_id)->inRandomOrder()->first()->id,
+            "gender" => PetGender::cases()[rand(0, 1)]->value,
         ], ['Accept' => 'application/json']);
 
         $response->assertSuccessful();
     }
 
-    public function test_guest_can_not_update_pet()
+    public function testGuestCanNotUpdatePet()
     {
         $pet = Pet::factory()->create();
-        
+
         $response = $this->put("/api/pet/{$pet->id}", [
             "name" => "My Pet Name",
             "description" => "My pet description",
             "pet_species_id" => $species_id = PetSpecies::inRandomOrder()->first()->id,
-            "pet_breed_id" => PetBreed::where('pet_species_id', $species_id)->inRandomOrder()->first()->id,            
-            "gender" => PetGender::cases()[rand(0,1)]->value,
+            "pet_breed_id" => PetBreed::where('pet_species_id', $species_id)->inRandomOrder()->first()->id,
+            "gender" => PetGender::cases()[rand(0, 1)]->value,
         ], ['Accept' => 'application/json']);
 
         $response->assertForbidden();

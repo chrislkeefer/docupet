@@ -14,9 +14,10 @@ class UpdatePetRequest extends FormRequest
      */
     public function authorize()
     {
-        if ($pet = $this->route('pet'))
+        if ($pet = $this->route('pet')) {
             return $this->user()->can('update', $pet);
-        
+        }
+
         return false;
     }
 

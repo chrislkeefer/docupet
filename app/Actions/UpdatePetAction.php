@@ -6,7 +6,7 @@ use App\Models\Pet;
 
 class UpdatePetAction
 {
-    public function exec(array $validated = [], Pet $pet): Pet
+    public function exec(Pet $pet, array $validated = []): Pet
     {
         $pet->fill($validated)->save();
 

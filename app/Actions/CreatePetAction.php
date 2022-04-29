@@ -7,13 +7,10 @@ use App\Models\User;
 
 class CreatePetAction
 {
-    public function exec(array $validated = [], ?User $user): ?Pet
+    public function exec($validated = []): ?Pet
     {
-        if ($user)
-            $validated['user_id'] = $user->id;
-
         $pet = Pet::create([
-            ... $validated
+            ...$validated
         ]);
 
         return $pet;
