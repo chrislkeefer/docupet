@@ -39,6 +39,7 @@ export default {
                 pet_species_id: null,
                 pet_breed_id: null,
                 breed: null,
+                gender: null,
             },
             selected_pet_species: null,
             selected_pet_breed: null,
@@ -50,6 +51,14 @@ export default {
         };
     },
     methods: {
+        resetForm() {
+            this.form.name = '';
+            this.form.pet_species_id = null;
+            this.form.pet_breed_id = null;
+            this.form.gender = null;
+            this.selected_pet_species = null;
+            this.selected_pet_breed = null;
+        },
         fetchPetBreedBySpeciesId(speciesId) {
             if (!speciesId) return;
 
@@ -71,6 +80,7 @@ export default {
                 .then((response) => {
                     this.errors.length = 0;
                     this.successful = true;
+                    this.resetForm();
                 })
                 .catch((e) => {
                     this.successful = false;
