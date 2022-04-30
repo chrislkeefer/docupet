@@ -7,6 +7,15 @@ use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
+    use RefreshDatabase;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->seed(PetSeeder::class);
+    }
+    
     /**
      * A basic test example.
      *
