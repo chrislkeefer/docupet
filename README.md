@@ -19,7 +19,7 @@ The front-end of the application is powered by Laravel Blade, Vue, Headless UI a
 To build the front-end type `npm run dev`
 
 ### Back-end
-The back-end of the application is entirely Laravel based, and follows standard Laravel conventions.
+The back-end of the application is entirely Laravel based, and follows standard Laravel conventions. We are serving an API with an extremely small foot-print. Some of the endpoints of the API are built using Spatie's really great package, https://spatie.be/docs/laravel-query-builder 
 
 One pattern that is not _inherent_ to Laravel is the use of Action classes to encapsulate domain critical functionality.
 
