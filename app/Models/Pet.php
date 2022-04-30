@@ -11,7 +11,7 @@ class Pet extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["name", "description", "pet_species_id", "pet_breed_id", "gender"];
+    protected $fillable = ["name", "description", "pet_species_id", "pet_breed_id", "pet_breed", "gender"];
 
     protected $cast = [
         "gender" => PetGender::class

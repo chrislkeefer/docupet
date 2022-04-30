@@ -27,7 +27,7 @@ class StorePetRequest extends FormRequest
         return [
             "gender" => "required|string|in:male,female",
             "pet_species_id" => "required|nullable|exists:pet_species,id",
-            "pet_breed_id" => "required|nullable|exists:pet_breeds,id",
+            "pet_breed_id" => "nullable|exists:pet_breeds,id",
             "pet_breed" => "nullable|string",
             "name" => "required|string",
             "description" => "nullable|string"
